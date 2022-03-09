@@ -1,0 +1,14 @@
+<view class="container">
+    <view class="sample_card" data-url="mini://page?path=pageB" bind:tap="onTap">
+        点击打开其他页面
+    </view>
+    <view class="sample_card" data-url="mini://mp?appId=xxxxxx" bind:tap="onTap">
+        点击打开其他小程序
+    </view>
+    <view class="sample_card" data-url="mini://web?url=xxxxxx" bind:tap="onTap">
+        点击打开网页
+    </view>
+    <view class="sample_card" data-url="mini://dialog?title=Demo&content=Hello" bind:tap="onTap">
+        点击弹出对话框
+    </view>
+</view>

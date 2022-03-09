@@ -1,0 +1,6 @@
+.sample_card {
+    text-align: center;
+    margin: 0 12rpx 12rpx 12rpx;
+    padding: 48rpx 24rpx;
+    background: #e4e4e4;
+}
