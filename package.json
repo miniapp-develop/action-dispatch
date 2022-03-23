@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/miniapp-develop/url-dispatch",
   "dependencies": {
-    "@xesam/url": "0.0.1"
+    "@xesam/url": "0.0.2"
   },
   "devDependencies": {},
   "keywords": [

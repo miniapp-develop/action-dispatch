@@ -1,5 +1,6 @@
 const url = require('@xesam/url');
-const urlWithQuery = url.create(res => {
+const urlWithQuery = function (urlStr) {
+    const res = url(urlStr);
     if (res.query) {
         res.query = res.query.split('&').map(pair => {
             return pair.split('=');
@@ -9,7 +10,7 @@ const urlWithQuery = url.create(res => {
         }, {});
     }
     return res;
-});
+}
 
 class Dispatcher {
     constructor(name) {

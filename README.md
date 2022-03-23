@@ -1,3 +1,3 @@
-# miniapp url dispatch
+# miniapp action dispatch
 
-使用 url 的方式来处理动态下发的跳转内容。
+处理小程序内各种动态下发的跳转。
