@@ -8,7 +8,7 @@ Page({
     },
     onTap(e) {
         const urlStr = e.target.dataset.url;
-        dispatcher.handle(this, urlStr);
+        dispatcher.handle(urlStr, this);
     },
     aFn() {
         wx.showModal({

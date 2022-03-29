@@ -20,13 +20,21 @@ class Dispatcher {
     constructor() {
         this._customs = [];
         this._defaults = [page, miniapp, webview, func];
-        this.config({scheme: DEFAULT_SCHEME});
+        this._cfg = {
+            scheme: DEFAULT_SCHEME,
+            webview: DEFAULT_WEBVIEW_PAGE
+        };
     }
 
-    config({scheme = DEFAULT_SCHEME, webview = DEFAULT_WEBVIEW_PAGE}) {
-        this._scheme = scheme;
-        this._webview = webview;
-        return this;
+    config(name, value) {
+        if (arguments.length === 0) {
+            return this._cfg;
+        } else if (arguments.length === 1) {
+            return this._cfg[arguments[0]];
+        } else {
+            this._cfg[arguments[0]] = arguments[1];
+            return this;
+        }
     }
 
     register(handler) {
@@ -38,19 +46,19 @@ class Dispatcher {
         return urlWithQuery(urlStr);
     }
 
-    handle(context, urlStr) {
+    handle(urlStr, thisArg) {
         const data = this.parseUrl(urlStr);
         for (let handler of this._customs) {
-            const ret = handler.apply(context, [data, urlStr, this]);
+            const ret = handler.apply(thisArg, [data, urlStr, this]);
             if (ret) {
                 return true;
             }
         }
-        if (data.scheme !== this._scheme) {
+        if (data.scheme !== this.config('scheme')) {
             return false;
         }
         for (let handler of this._defaults) {
-            const ret = handler.apply(context, [data, urlStr, this]);
+            const ret = handler.apply(thisArg, [data, urlStr, this]);
             if (ret) {
                 return true;
             }

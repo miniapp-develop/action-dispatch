@@ -21,7 +21,7 @@ const webview = ({host, query, queryObj}, urlStr, dispatcher) => {
         return false;
     }
     wx.navigateTo({
-        url: `${dispatcher._webview}?${query}`
+        url: `${dispatcher.config('webview')}?${query}`
     });
     return true;
 };

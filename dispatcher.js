@@ -9,7 +9,7 @@ const d = new Dispatcher().register(({scheme, host, queryObj}, urlStr, dispatche
     }
     if (scheme === 'http' || scheme === 'https') {
         wx.navigateTo({
-            url: `${dispatcher._webview}?url=${urlStr}`
+            url: `${dispatcher.config('webview')}?url=${urlStr}`
         });
         return true;
     }
