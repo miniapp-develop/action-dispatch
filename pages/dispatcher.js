@@ -1,6 +1,6 @@
 const Dispatcher = require('../libs/index');
 
-const d = new Dispatcher().register(({scheme, host, queryObj}, urlStr, dispatcher) => {
+const d = new Dispatcher().register(({scheme, host, params}, urlStr, dispatcher) => {
     if (!scheme) {
         wx.navigateTo({
             url: urlStr
@@ -15,8 +15,8 @@ const d = new Dispatcher().register(({scheme, host, queryObj}, urlStr, dispatche
     }
     if (host === 'dialog') {
         wx.showModal({
-            title: queryObj.title,
-            content: queryObj.content
+            title: params.title,
+            content: params.content
         });
         return true;
     }

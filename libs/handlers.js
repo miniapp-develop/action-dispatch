@@ -1,22 +1,22 @@
-const page = ({host, queryObj}) => {
+const page = ({host, params}) => {
     if (host !== 'page') {
         return false;
     }
     wx.navigateTo({
-        url: queryObj.path
+        url: params.path
     });
     return true;
 };
 
-const miniapp = ({host, queryObj}) => {
+const miniapp = ({host, params}) => {
     if (host !== 'miniapp') {
         return false;
     }
-    wx.navigateToMiniProgram(queryObj);
+    wx.navigateToMiniProgram(params);
     return true;
 };
 
-const webview = ({host, query, queryObj}, urlStr, dispatcher) => {
+const webview = ({host, query, params}, urlStr, dispatcher) => {
     if (host !== 'webview') {
         return false;
     }
@@ -26,16 +26,16 @@ const webview = ({host, query, queryObj}, urlStr, dispatcher) => {
     return true;
 };
 
-function func({host, queryObj}) {
+function func({host, params}) {
     if (host !== 'func') {
         return false;
     }
-    const name = queryObj.name;
+    const name = params.name;
     const fn = this[name];
     if (!fn) {
         return false;
     }
-    fn.call(this, queryObj);
+    fn.call(this, params);
     return true;
 }
 

@@ -3,7 +3,7 @@ const {func, miniapp, page, webview} = require('./handlers');
 const urlWithQuery = function (urlStr) {
     const res = url(urlStr);
     if (res.query) {
-        res.queryObj = res.query.split('&').map(pair => {
+        res.params = res.query.split('&').map(pair => {
             return pair.split('=');
         }).reduce((obj, [key, value]) => {
             obj[decodeURIComponent(key)] = decodeURIComponent(value); // todo 处理多选的情况
@@ -42,23 +42,23 @@ class Dispatcher {
         return this;
     }
 
-    parseUrl(urlStr) {
+    parseAction(urlStr) {
         return urlWithQuery(urlStr);
     }
 
-    handle(urlStr, thisArg) {
-        const data = this.parseUrl(urlStr);
+    handle(actionUrl, miniContext) {
+        const action = this.parseAction(actionUrl);
         for (let handler of this._customs) {
-            const ret = handler.apply(thisArg, [data, urlStr, this]);
+            const ret = handler.apply(miniContext, [action, actionUrl, this]);
             if (ret) {
                 return true;
             }
         }
-        if (data.scheme !== this.config('scheme')) {
+        if (action.scheme !== this.config('scheme')) {
             return false;
         }
         for (let handler of this._defaults) {
-            const ret = handler.apply(thisArg, [data, urlStr, this]);
+            const ret = handler.apply(miniContext, [action, actionUrl, this]);
             if (ret) {
                 return true;
             }

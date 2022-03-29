@@ -1,14 +1,19 @@
 import dispatcher from '../dispatcher';
 
 Page({
-    data: {},
+    data: {
+        extra: {
+            name: 'index',
+            id: '000000000000001'
+        }
+    },
     onLoad(query) {
     },
     onUnload() {
     },
     onTap(e) {
-        const urlStr = e.target.dataset.url;
-        dispatcher.handle(urlStr, this);
+        const actionUrl = e.target.dataset.url;
+        dispatcher.handle(actionUrl, this);
     },
     aFn() {
         wx.showModal({
