@@ -1,6 +1,5 @@
-import {func, miniapp, page, webview} from './handlers';
-
 const url = require('@xesam/url');
+const {func, miniapp, page, webview} = require('./handlers');
 const urlWithQuery = function (urlStr) {
     const res = url(urlStr);
     if (res.query) {

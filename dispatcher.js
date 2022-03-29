@@ -1,4 +1,4 @@
-const Dispatcher = require('./libs/dispatch');
+const Dispatcher = require('./libs/index');
 
 const d = new Dispatcher().register(({scheme, host, queryObj}, urlStr) => {
     if (!scheme) {

@@ -1,19 +1,19 @@
 {
-  "name": "@mini-dev/url-dispatch",
+  "name": "@mini-dev/action-dispatch",
   "version": "0.0.1",
-  "description": "miniapp url dispatch",
+  "description": "miniapp action dispatch",
   "miniprogram": "libs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:miniapp-develop/url-dispatch.git"
+    "url": "git+git@github.com:miniapp-develop/action-dispatch.git"
   },
   "bugs": {
-    "url": "https://github.com/miniapp-develop/url-dispatch"
+    "url": "https://github.com/miniapp-develop/action-dispatch"
   },
-  "homepage": "https://github.com/miniapp-develop/url-dispatch",
+  "homepage": "https://github.com/miniapp-develop/action-dispatch",
   "dependencies": {
     "@xesam/url": "0.0.2"
   },

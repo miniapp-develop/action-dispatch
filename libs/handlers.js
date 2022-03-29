@@ -39,7 +39,7 @@ function func({host, queryObj}) {
     return true;
 }
 
-export {
+module.exports = {
     page,
     miniapp,
     webview,
