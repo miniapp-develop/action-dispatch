@@ -17,7 +17,7 @@
     <view class="sample_card" data-url="mini://dialog?title=Demo&content=Hello" bind:tap="onTap">
         点击弹出对话框(自定义)
     </view>
-    <view class="sample_card" data-url="mini://func?name=aFn&title=Demo&content=Hello" bind:tap="onTap">
+    <view class="sample_card" data-url="mini://func/aFn?title=Demo&content=Hello" bind:tap="onTap">
         点击弹出对话框(默认)
     </view>
 </view>

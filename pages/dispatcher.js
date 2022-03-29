@@ -1,15 +1,15 @@
 const Dispatcher = require('../libs/index');
 
-const d = new Dispatcher().register(({scheme, host, params}, urlStr, dispatcher) => {
+const d = new Dispatcher().register(({scheme, host, params}, actionUrl, dispatcher) => {
     if (!scheme) {
         wx.navigateTo({
-            url: urlStr
+            url: actionUrl
         });
         return true;
     }
     if (scheme === 'http' || scheme === 'https') {
         wx.navigateTo({
-            url: `${dispatcher.config('webview')}?url=${urlStr}`
+            url: `${dispatcher.config('webview')}?url=${actionUrl}`
         });
         return true;
     }

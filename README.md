@@ -56,7 +56,7 @@ dispatcher.handle(pageThis, urlStr);
         
 #### 执行特定方法
 
-    mini://func?name={function name}
+    mini://func/{function name}?param1=value1
 
 ### 修改默认协议
 
@@ -70,6 +70,6 @@ dispatcher.config('scheme','test');
     test://page?path={page path}
     test://webview?url={webpage path}
     test://miniapp?appId={miniapp id}&path={page path}
-    test://func?name={function name}
+    test://{function name}?param1=value1
     
     

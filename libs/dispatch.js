@@ -2,13 +2,16 @@ const url = require('@xesam/url');
 const {func, miniapp, page, webview} = require('./handlers');
 const urlWithQuery = function (urlStr) {
     const res = url(urlStr);
+    res.params = {};
     if (res.query) {
-        res.params = res.query.split('&').map(pair => {
-            return pair.split('=');
-        }).reduce((obj, [key, value]) => {
-            obj[decodeURIComponent(key)] = decodeURIComponent(value); // todo 处理多选的情况
-            return obj;
-        }, {});
+        res.params = res.query.split('&')
+            .map(pair => {
+                return pair.split('=');
+            })
+            .reduce((obj, [key, value]) => {
+                obj[decodeURIComponent(key)] = decodeURIComponent(value); // todo 处理多选的情况
+                return obj;
+            }, res.params);
     }
     return res;
 }
@@ -46,8 +49,13 @@ class Dispatcher {
         return urlWithQuery(urlStr);
     }
 
-    handle(actionUrl, miniContext) {
+    handle(actionUrl, miniContext, inject = {}) {
         const action = this.parseAction(actionUrl);
+        if (typeof inject === 'function') {
+            action.params = inject(action.params) || {};
+        } else {
+            Object.assign(action.params, inject);
+        }
         for (let handler of this._customs) {
             const ret = handler.apply(miniContext, [action, actionUrl, this]);
             if (ret) {

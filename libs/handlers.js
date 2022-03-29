@@ -26,12 +26,12 @@ const webview = ({host, query, params}, urlStr, dispatcher) => {
     return true;
 };
 
-function func({host, params}) {
+function func({host, path, params}) {
     if (host !== 'func') {
         return false;
     }
-    const name = params.name;
-    const fn = this[name];
+    const methodName = path.substring(1)
+    const fn = this[methodName];
     if (!fn) {
         return false;
     }
