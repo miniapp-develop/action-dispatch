@@ -1,3 +1,5 @@
+import {func, miniapp, page} from './handlers';
+
 const url = require('@xesam/url');
 const urlWithQuery = function (urlStr) {
     const res = url(urlStr);
@@ -12,40 +14,46 @@ const urlWithQuery = function (urlStr) {
     return res;
 }
 
+const DEFAULT_SCHEME = 'mini';
+
 class Dispatcher {
-    constructor(name) {
-        this._name = name;
-        this._handlers = {};
+    constructor() {
+        this._customs = [];
+        this._defaults = [page, miniapp, func];
+        this.config({scheme: DEFAULT_SCHEME});
     }
 
-    register(scheme, handler) {
-        this._handlers[scheme] = handler;
+    config({scheme = DEFAULT_SCHEME}) {
+        this._scheme = scheme;
+    }
+
+    register(handler) {
+        this._customs.push(handler);
         return this;
     }
 
-    unregister(scheme) {
-        delete this._handlers[scheme];
-        return this;
+    parseUrl(urlStr) {
+        return urlWithQuery(urlStr);
     }
 
-    clearAll() {
-        this._handlers = {};
-        return this;
-    }
-
-    handle(urlStr) {
-        const res = urlWithQuery(urlStr);
-        const handler = this._handlers[res.scheme];
-        if (handler) {
-            return {
-                done: true,
-                value: handler(res)
+    handle(context, urlStr) {
+        const data = this.parseUrl(urlStr);
+        for (let handler of this._customs) {
+            const ret = handler.apply(context, [data, urlStr]);
+            if (ret) {
+                return true;
             }
-        } else {
-            return {
-                done: false
-            };
         }
+        if (data.scheme !== this._scheme) {
+            return false;
+        }
+        for (let handler of this._defaults) {
+            const ret = handler.apply(context, [data, urlStr]);
+            if (ret) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

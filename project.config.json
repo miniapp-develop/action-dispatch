@@ -44,7 +44,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.2.3",
   "appid": "wx132bb522ad967270",
-  "projectname": "url-dispatch",
+  "projectname": "action-dispatch",
   "debugOptions": {
     "hidedInDevtools": []
   },
