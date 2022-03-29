@@ -1,10 +1,10 @@
-import {func, miniapp, page} from './handlers';
+import {func, miniapp, page, webview} from './handlers';
 
 const url = require('@xesam/url');
 const urlWithQuery = function (urlStr) {
     const res = url(urlStr);
     if (res.query) {
-        res.query = res.query.split('&').map(pair => {
+        res.queryObj = res.query.split('&').map(pair => {
             return pair.split('=');
         }).reduce((obj, [key, value]) => {
             obj[decodeURIComponent(key)] = decodeURIComponent(value);
@@ -15,16 +15,19 @@ const urlWithQuery = function (urlStr) {
 }
 
 const DEFAULT_SCHEME = 'mini';
+const DEFAULT_WEBVIEW_PAGE = '/pages/web/index';
 
 class Dispatcher {
     constructor() {
         this._customs = [];
-        this._defaults = [page, miniapp, func];
+        this._defaults = [page, miniapp, webview, func];
         this.config({scheme: DEFAULT_SCHEME});
     }
 
-    config({scheme = DEFAULT_SCHEME}) {
+    config({scheme = DEFAULT_SCHEME, webview = DEFAULT_WEBVIEW_PAGE}) {
         this._scheme = scheme;
+        this._webview = webview;
+        return this;
     }
 
     register(handler) {
@@ -39,7 +42,7 @@ class Dispatcher {
     handle(context, urlStr) {
         const data = this.parseUrl(urlStr);
         for (let handler of this._customs) {
-            const ret = handler.apply(context, [data, urlStr]);
+            const ret = handler.apply(context, [data, urlStr, this]);
             if (ret) {
                 return true;
             }
@@ -48,7 +51,7 @@ class Dispatcher {
             return false;
         }
         for (let handler of this._defaults) {
-            const ret = handler.apply(context, [data, urlStr]);
+            const ret = handler.apply(context, [data, urlStr, this]);
             if (ret) {
                 return true;
             }

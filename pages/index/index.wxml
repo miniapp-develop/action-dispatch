@@ -8,7 +8,7 @@
     <view class="sample_card" data-url="mini://miniapp?appId=xxxxxx" bind:tap="onTap">
         点击打开其他小程序
     </view>
-    <view class="sample_card" data-url="mini://webview?url=xxxxxx" bind:tap="onTap">
+    <view class="sample_card" data-url="mini://webview?url=xxxxxx&title=this_is_title&color=red" bind:tap="onTap">
         点击打开网页(方式一)
     </view>
     <view class="sample_card" data-url="https://aa.bb.cc?key=value" bind:tap="onTap">

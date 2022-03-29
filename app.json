@@ -1,12 +1,13 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/pageB/index"
+    "pages/pageB/index",
+    "pages/web/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "modal",
+    "navigationBarTitleText": "dispatch",
     "navigationBarTextStyle": "black"
   },
   "style": "v2",
