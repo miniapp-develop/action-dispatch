@@ -11,7 +11,7 @@
     <view class="sample_card" data-url="mini://webview?url=xxxxxx&title=this_is_title&color=red" bind:tap="onTap">
         点击打开网页(方式一)
     </view>
-    <view class="sample_card" data-url="https://aa.bb.cc?key=value" bind:tap="onTap">
+    <view class="sample_card" data-url="https://aa.bb.cc/xyz?key=value" bind:tap="onTap">
         点击打开网页(方式二)
     </view>
     <view class="sample_card" data-url="mini://dialog?title=Demo&content=Hello" bind:tap="onTap">

@@ -1,6 +1,6 @@
 const Dispatcher = require('./libs/index');
 
-const d = new Dispatcher().register(({scheme, host, queryObj}, urlStr) => {
+const d = new Dispatcher().register(({scheme, host, queryObj}, urlStr, dispatcher) => {
     if (!scheme) {
         wx.navigateTo({
             url: urlStr
@@ -8,7 +8,9 @@ const d = new Dispatcher().register(({scheme, host, queryObj}, urlStr) => {
         return true;
     }
     if (scheme === 'http' || scheme === 'https') {
-        console.log('打开网页', urlStr);
+        wx.navigateTo({
+            url: `${dispatcher._webview}?url=${urlStr}`
+        });
         return true;
     }
     if (host === 'dialog') {
