@@ -6,7 +6,7 @@ const urlWithQuery = function (urlStr) {
         res.queryObj = res.query.split('&').map(pair => {
             return pair.split('=');
         }).reduce((obj, [key, value]) => {
-            obj[decodeURIComponent(key)] = decodeURIComponent(value);
+            obj[decodeURIComponent(key)] = decodeURIComponent(value); // todo 处理多选的情况
             return obj;
         }, {});
     }
