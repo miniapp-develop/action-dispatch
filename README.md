@@ -10,7 +10,7 @@
 npm install @mini-dev/action-dispatch
 ```
 
-配置默认的 webview 地址：
+配置默认的 webview 页面地址：
 
 ```javascript
 
@@ -23,10 +23,10 @@ dispatcher.config("webview", '/pages/web/index');
 配置自定义处理函数：
 
 ```javascript
-dispatcher.register(({scheme, host, queryObj}, urlStr, current) => {
+dispatcher.register(({scheme, host, queryObj}, actionUrl, dispatcher) => {
     if (scheme === 'http' || scheme === 'https') {
         wx.navigateTo({
-            url: `${current._webview}?url=${urlStr}`
+            url: `${dispatcher.config('webview')}?url=${actionUrl}`
         });
         return true;
     }

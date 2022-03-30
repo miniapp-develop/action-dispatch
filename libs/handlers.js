@@ -16,7 +16,7 @@ const miniapp = ({host, params}) => {
     return true;
 };
 
-const webview = ({host, query, params}, urlStr, dispatcher) => {
+const webview = ({host, query, params}, actionUrl, dispatcher) => {
     if (host !== 'webview') {
         return false;
     }
@@ -31,11 +31,11 @@ function func({host, path, params}) {
         return false;
     }
     const methodName = path.substring(1)
-    const fn = this[methodName];
-    if (!fn) {
+    const method = this[methodName];
+    if (!method) {
         return false;
     }
-    fn.call(this, params);
+    method.call(this, params);
     return true;
 }
 

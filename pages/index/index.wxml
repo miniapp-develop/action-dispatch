@@ -2,7 +2,7 @@
     <view class="sample_card" data-url="/pages/pageB/index" bind:tap="onTap">
         点击打开其他页面(自定义)
     </view>
-    <view class="sample_card" data-url="mini://page?path=%2Fpages%2FpageB%2Findex" bind:tap="onTap">
+    <view class="sample_card" data-url="mini://page?path=%2Fpages%2FpageB%2Findex%3Fname%3Dxesam%26age%3D18" bind:tap="onTap">
         点击打开其他页面(默认)
     </view>
     <view class="sample_card" data-url="mini://miniapp?appId=xxxxxx" bind:tap="onTap">

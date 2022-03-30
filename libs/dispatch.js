@@ -1,6 +1,6 @@
 const url = require('@xesam/url');
 const {func, miniapp, page, webview} = require('./handlers');
-const urlWithQuery = function (urlStr) {
+const urlWithParams = function (urlStr) {
     const res = url(urlStr);
     res.params = {};
     if (res.query) {
@@ -46,7 +46,7 @@ class Dispatcher {
     }
 
     parseAction(urlStr) {
-        return urlWithQuery(urlStr);
+        return urlWithParams(urlStr);
     }
 
     handle(actionUrl, miniContext, inject = {}) {
@@ -57,7 +57,7 @@ class Dispatcher {
             Object.assign(action.params, inject);
         }
         for (let handler of this._customs) {
-            const ret = handler.apply(miniContext, [action, actionUrl, this]);
+            const ret = handler.apply(miniContext, [action, actionUrl, this, miniContext]);
             if (ret) {
                 return true;
             }
@@ -66,7 +66,7 @@ class Dispatcher {
             return false;
         }
         for (let handler of this._defaults) {
-            const ret = handler.apply(miniContext, [action, actionUrl, this]);
+            const ret = handler.apply(miniContext, [action, actionUrl, this, miniContext]);
             if (ret) {
                 return true;
             }
