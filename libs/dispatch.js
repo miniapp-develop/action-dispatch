@@ -20,9 +20,9 @@ const DEFAULT_SCHEME = 'mini';
 const DEFAULT_WEBVIEW_PAGE = '/pages/web/index';
 
 class Dispatcher {
-    constructor() {
+    constructor(delegate = DEFAULT_DISPATCHER) {
+        this._defaults = delegate;
         this._customs = [];
-        this._defaults = [page, miniapp, webview, func];
         this._cfg = {
             scheme: DEFAULT_SCHEME,
             webview: DEFAULT_WEBVIEW_PAGE
@@ -45,34 +45,38 @@ class Dispatcher {
         return this;
     }
 
-    parseAction(urlStr) {
-        return urlWithParams(urlStr);
+    parseAction(actionUrl) {
+        return urlWithParams(actionUrl);
     }
 
-    handle(actionUrl, miniContext, inject = {}) {
+    handle(actionUrl, miniContext, extra = {}) {
         const action = this.parseAction(actionUrl);
-        if (typeof inject === 'function') {
-            action.params = inject(action.params) || {};
-        } else {
-            Object.assign(action.params, inject);
-        }
+        Object.assign(action.params, extra);
         for (let handler of this._customs) {
             const ret = handler.apply(miniContext, [action, actionUrl, this, miniContext]);
             if (ret) {
                 return true;
             }
         }
-        if (action.scheme !== this.config('scheme')) {
-            return false;
-        }
-        for (let handler of this._defaults) {
-            const ret = handler.apply(miniContext, [action, actionUrl, this, miniContext]);
-            if (ret) {
-                return true;
-            }
+        if (this._defaults) {
+            return this._defaults.handle(actionUrl, miniContext, extra);
         }
         return false;
     }
 }
+
+const DEFAULT_DISPATCHER = new Dispatcher(null);
+DEFAULT_DISPATCHER.register((action, actionUrl, dispatcher, context) => {
+    if (action.scheme !== dispatcher.config('scheme')) {
+        return false;
+    }
+    for (let handler of [page, miniapp, webview, func]) {
+        const ret = handler.apply(context, [action, actionUrl, dispatcher, context]);
+        if (ret) {
+            return true;
+        }
+    }
+    return false;
+});
 
 module.exports = Dispatcher;
