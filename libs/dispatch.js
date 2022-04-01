@@ -16,7 +16,7 @@ const urlWithParams = function (urlStr) {
     return res;
 }
 
-const DEFAULT_SCHEME = 'mini';
+const DEFAULT_SCHEME = 'mini:';
 const DEFAULT_WEBVIEW_PAGE = '/pages/web/index';
 
 class Dispatcher {
@@ -24,7 +24,7 @@ class Dispatcher {
         this._defaults = delegate;
         this._customs = [];
         this._cfg = {
-            scheme: DEFAULT_SCHEME,
+            protocol: DEFAULT_SCHEME,
             webview: DEFAULT_WEBVIEW_PAGE
         };
     }
@@ -67,7 +67,7 @@ class Dispatcher {
 
 const DEFAULT_DISPATCHER = new Dispatcher(null);
 DEFAULT_DISPATCHER.register((action, actionUrl, dispatcher, context) => {
-    if (action.scheme !== dispatcher.config('scheme')) {
+    if (action.protocol !== dispatcher.config('protocol')) {
         return false;
     }
     for (let handler of [page, miniapp, webview, func]) {
