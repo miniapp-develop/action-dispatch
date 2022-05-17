@@ -1,5 +1,5 @@
-const page = ({host, params}) => {
-    if (host !== 'page') {
+const page = ({hostname, params}) => {
+    if (hostname !== 'page') {
         return false;
     }
     wx.navigateTo({
@@ -8,16 +8,16 @@ const page = ({host, params}) => {
     return true;
 };
 
-const miniapp = ({host, params}) => {
-    if (host !== 'miniapp') {
+const miniapp = ({hostname, params}) => {
+    if (hostname !== 'miniapp') {
         return false;
     }
     wx.navigateToMiniProgram(params);
     return true;
 };
 
-const webview = ({host, query, params}, actionUrl, dispatcher) => {
-    if (host !== 'webview') {
+const webview = ({hostname, query}, actionUrl, dispatcher) => {
+    if (hostname !== 'webview') {
         return false;
     }
     wx.navigateTo({
@@ -26,11 +26,11 @@ const webview = ({host, query, params}, actionUrl, dispatcher) => {
     return true;
 };
 
-function func({host, path, params}) {
-    if (host !== 'func') {
+function func({hostname, pathname, params}) {
+    if (hostname !== 'func') {
         return false;
     }
-    const methodName = path.substring(1)
+    const methodName = pathname.substring(1)
     const method = this[methodName];
     if (!method) {
         return false;
@@ -39,9 +39,17 @@ function func({host, path, params}) {
     return true;
 }
 
+function http(action, actionUrl, dispatcher) {
+    wx.navigateTo({
+        url: `${dispatcher.config('webview')}?url=${encodeURIComponent(actionUrl)}`
+    });
+    return true;
+}
+
 module.exports = {
     page,
     miniapp,
     webview,
-    func
+    func,
+    http
 }

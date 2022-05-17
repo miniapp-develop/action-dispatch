@@ -1,18 +1,19 @@
 <view class="container">
-    <view class="sample_card" data-url="/pages/pageB/index" bind:tap="onTap">
-        点击打开其他页面(自定义)
+    <view class="sample_card" data-url="/pages/pageB/index?from=source1" bind:tap="onTap">
+        点击打开其他页面(path方式)
     </view>
-    <view class="sample_card" data-url="mini://page?path=%2Fpages%2FpageB%2Findex%3Fname%3Dxesam%26age%3D18" bind:tap="onTap">
-        点击打开其他页面(默认)
+    <view class="sample_card" data-url="mini://page?path=%2Fpages%2FpageB%2Findex%3Fname%3Dxesam%26age%3D18"
+          bind:tap="onTap">
+        点击打开其他页面(page方式)
     </view>
     <view class="sample_card" data-url="mini://miniapp?appId=xxxxxx" bind:tap="onTap">
         点击打开其他小程序
     </view>
     <view class="sample_card" data-url="mini://webview?url=xxxxxx&title=this_is_title&color=red" bind:tap="onTap">
-        点击打开网页(方式一)
+        点击打开网页(webview方式)
     </view>
     <view class="sample_card" data-url="https://aa.bb.cc/xyz?key=value" bind:tap="onTap">
-        点击打开网页(方式二)
+        点击打开网页(http方式)
     </view>
     <view class="sample_card" data-url="mini://dialog?title=Demo&content=Hello" bind:tap="onTap">
         点击弹出对话框(自定义)
