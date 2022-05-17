@@ -13,7 +13,7 @@ class UrlObject {
                     return obj;
                 }, {});
         } else {
-            this._params = url(urlString);
+            this._params = {};
         }
     }
 
