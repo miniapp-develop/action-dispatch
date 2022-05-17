@@ -40,15 +40,31 @@ dispatcher.register(({scheme, host, queryObj}, actionUrl, dispatcher) => {
 dispatcher.handle(pageThis, urlStr);
 ```
 
-### 内置默认跳转协议
+### 默认支持的跳转协议
 
-#### 跳转小程序内的其他页面
+#### 根据具体路径跳转到小程序内的其他页面
 
-    mini://page?path={page path}
+    /pages/pageB/index?from=source1
+
+通过 extra 传入的参数，都会被附加到执行跳转的 path 上。
+
+#### 通过页面名称跳转小程序内的其他页面
+
+    mini://page?_name={page name}&key=value
+
+其中 _name 指定目标页面的名字，其他参数（比如：key=value）、以及通过 extra 传入的参数，都会被附加到执行跳转的 path 上。
+
+#### 跳转具体链接到网页
+
+    https://aa.bb.cc/xyz?key=value&from=source5
+    
+通过 extra 传入的参数，都会被附加到最终的网页地址上。
 
 #### 跳转到网页
 
-    mini://webview?url={webpage path}
+    mini://webview?_url={webpage url}&key=value&key=value
+
+其中 __url 指定目标网页的链接地址，其他参数（比如：key=value）、以及通过 extra 传入的参数，都会被附加到执行跳转的 path 上，而不是最终的网页地址上。
 
 #### 跳转到其他小程序
 
@@ -62,13 +78,13 @@ dispatcher.handle(pageThis, urlStr);
 
 ```javascript
 
-dispatcher.config('scheme','test');
+dispatcher.config('protocol','test');
 
 ```
 这样，默认的跳转协议就变成：
 
-    test://page?path={page path}
-    test://webview?url={webpage path}
+    test://page?_name={page name}
+    test://webview?_url={webpage url}
     test://miniapp?appId={miniapp id}&path={page path}
     test://{function name}?param1=value1
     
