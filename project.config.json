@@ -44,7 +44,7 @@
     "useStaticServer": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.2.3",
+  "libVersion": "2.23.2",
   "appid": "wx132bb522ad967270",
   "projectname": "action-dispatch",
   "condition": {},

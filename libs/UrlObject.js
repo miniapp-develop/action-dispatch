@@ -9,7 +9,7 @@ class UrlObject {
                     return pair.split('=');
                 })
                 .reduce((obj, [key, value]) => {
-                    obj[decodeURIComponent(key)] = decodeURIComponent(value); // todo 处理多选的情况
+                    obj[key] = value; // todo 处理多选的情况
                     return obj;
                 }, {});
         } else {

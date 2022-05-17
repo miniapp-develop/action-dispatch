@@ -3,7 +3,7 @@ const page = ({hostname, params}) => {
         return false;
     }
     wx.navigateTo({
-        url: params.path
+        url: decodeURIComponent(params.path)
     });
     return true;
 };

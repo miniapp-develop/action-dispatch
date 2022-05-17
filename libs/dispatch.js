@@ -57,7 +57,7 @@ DEFAULT_DISPATCHER.register((action, actionUrl, dispatcher, context) => {
         if (ret) {
             return true;
         }
-    } else if (action.protocol !== dispatcher.config('protocol')) {
+    } else if (action.protocol === dispatcher.config('protocol')) {
         for (let handler of [page, miniapp, webview, func]) {
             const ret = handler.apply(context, [action, actionUrl, dispatcher, context]);
             if (ret) {
