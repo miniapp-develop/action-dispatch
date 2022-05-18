@@ -29,9 +29,9 @@ class Dispatcher {
         return new UrlObject(actionUrl);
     }
 
-    _handleAction(handles, action, actionUrl, dispatcher, miniContext) {
+    _handleAction(handles, action, actionUrl, dispatcher, handleContext) {
         for (let handle of handles) {
-            const ret = handle.apply(miniContext, [action, actionUrl, dispatcher, miniContext]);
+            const ret = handle.apply(handleContext, [action, actionUrl, dispatcher]);
             if (ret) {
                 return true;
             }
@@ -39,14 +39,14 @@ class Dispatcher {
         return false;
     }
 
-    handleAction(action, actionUrl, miniContext) {
-        return this._handleAction(this._handles, action, actionUrl, this, miniContext);
+    handleAction(action, actionUrl, handleContext) {
+        return this._handleAction(this._handles, action, actionUrl, this, handleContext);
     }
 
-    handle(actionUrl, extra, miniContext) {
+    handle(actionUrl, extra, handleContext) {
         const action = this._parseAction(actionUrl);
         action.assignParams(extra);
-        return this.handleAction(action, actionUrl, miniContext);
+        return this.handleAction(action, actionUrl, handleContext);
     }
 }
 

@@ -33,7 +33,7 @@ class UrlObject {
         return this._params;
     }
 
-    assignParams(values) {
+    assignParams(values = {}) {
         Object.assign(this._params, values);
     }
 

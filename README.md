@@ -23,8 +23,8 @@ dispatcher.config("webview", '/pages/web/index');
 配置自定义处理函数：
 
 ```javascript
-dispatcher.register(({scheme, host, queryObj}, actionUrl, dispatcher) => {
-    if (scheme === 'http' || scheme === 'https') {
+dispatcher.register((action, actionUrl, dispatcher) => {
+    if (action.protocol === 'http' || action.protocol === 'https') {
         wx.navigateTo({
             url: `${dispatcher.config('webview')}?url=${actionUrl}`
         });
@@ -37,7 +37,7 @@ dispatcher.register(({scheme, host, queryObj}, actionUrl, dispatcher) => {
 处理跳转 url
 
 ```javascript
-dispatcher.handle(pageThis, urlStr);
+dispatcher.handle(actionUrl, extra, handleContext);
 ```
 
 ### 默认支持的跳转协议
