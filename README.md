@@ -14,8 +14,8 @@ npm install @mini-dev/action-dispatch
 
 ```javascript
 
-const Dispatcher = require("@mini-dev/action-dispatch");
-const dispatcher = new Dispatcher();
+const {Dispatcher, MiniDispatcher} = require("@mini-dev/action-dispatch");
+const dispatcher = new MiniDispatcher();
 dispatcher.config("webview", '/pages/web/index');
 
 ```
@@ -48,12 +48,30 @@ dispatcher.handle(pageThis, urlStr);
 
 通过 extra 传入的参数，都会被附加到执行跳转的 path 上。
 
+比如：
+
+```javascript
+dispatcher.handle('/pages/pageB/index?from=source1', {a:100})
+```
+最终执行跳转的 path 为：
+
+   /pages/pageB/index?from=source1&a=100
+
 #### 通过页面名称跳转小程序内的其他页面
 
     mini://page?_name={page name}&key=value
 
 其中 _name 指定目标页面的名字，其他参数（比如：key=value）、以及通过 extra 传入的参数，都会被附加到执行跳转的 path 上。
 
+比如：
+
+```javascript
+dispatcher.handle('mini://page?_name=pageA&from=source2', {a:100})
+```
+最终执行跳转的 path 为：
+
+   /pages/pageB/index?_name=pageA&from=source2&a=100
+   
 #### 跳转具体链接到网页
 
     https://aa.bb.cc/xyz?key=value&from=source5
@@ -62,9 +80,9 @@ dispatcher.handle(pageThis, urlStr);
 
 #### 跳转到网页
 
-    mini://webview?_url={webpage url}&key=value&key=value
+    mini://webview?_url={webpage url}&key=value
 
-其中 __url 指定目标网页的链接地址，其他参数（比如：key=value）、以及通过 extra 传入的参数，都会被附加到执行跳转的 path 上，而不是最终的网页地址上。
+其中 _url 指定目标网页的链接地址，其他参数（比如：key=value）、以及通过 extra 传入的参数，都会被附加到执行跳转的 path 上，而不是最终的网页地址上。
 
 #### 跳转到其他小程序
 

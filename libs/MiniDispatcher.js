@@ -37,7 +37,11 @@ const miniappHandle = ({hostname, params}) => {
     if (hostname !== 'miniapp') {
         return false;
     }
-    wx.navigateToMiniProgram(params);
+    let finalParams = {};
+    for (let key in params) {
+        finalParams[key] = decodeURIComponent(params[key]);
+    }
+    wx.navigateToMiniProgram(finalParams);
     return true;
 };
 
