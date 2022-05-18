@@ -13,17 +13,15 @@ npm install @mini-dev/action-dispatch
 配置默认的 webview 页面地址：
 
 ```javascript
-
 const {Dispatcher, MiniDispatcher} = require("@mini-dev/action-dispatch");
 const dispatcher = new MiniDispatcher();
 dispatcher.config("webview", '/pages/web/index');
-
 ```
 
 配置自定义处理函数：
 
 ```javascript
-dispatcher.register((action, actionUrl, dispatcher) => {
+dispatcher.registerHandle((action, actionUrl, dispatcher) => {
     if (action.protocol === 'http' || action.protocol === 'https') {
         wx.navigateTo({
             url: `${dispatcher.config('webview')}?url=${actionUrl}`
@@ -95,9 +93,7 @@ dispatcher.handle('mini://page?_name=pageA&from=source2', {a:100})
 ### 修改默认协议
 
 ```javascript
-
 dispatcher.config('protocol','test');
-
 ```
 这样，默认的跳转协议就变成：
 
