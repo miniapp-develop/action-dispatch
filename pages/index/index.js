@@ -13,7 +13,7 @@ Page({
     },
     onTap(e) {
         const actionUrl = e.target.dataset.url;
-        dispatcher.handle(actionUrl, this, this.data.extra);
+        dispatcher.handle(actionUrl, this.data.extra, this);
     },
     aFn() {
         wx.showModal({

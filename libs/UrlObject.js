@@ -45,8 +45,15 @@ class UrlObject {
             .join('&');
     }
 
-    getUrlString() {
-
+    createUrlString() {
+        let segments = [];
+        segments.push(this._url.protocol ? this._url.protocol + '//' : '');
+        segments.push(this._url.host ? this._url.host : '');
+        segments.push(this._url.pathname ? this._url.pathname : '');
+        const query = this.query;
+        segments.push(query ? '?' + query : '');
+        segments.push(this._url.hash ? this._url.hash : '');
+        return segments.join('');
     }
 }
 

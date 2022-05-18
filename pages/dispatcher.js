@@ -1,12 +1,7 @@
-const Dispatcher = require('../libs/index');
-
-const d = new Dispatcher().register(({protocol, hostname, params}, actionUrl, dispatcher) => {
-    if (!protocol) {
-        wx.navigateTo({
-            url: actionUrl
-        });
-        return true;
-    }
+const {MiniDispatcher} = require('../libs/index');
+export default new MiniDispatcher({
+    pageB: '/pages/pageB/index'
+}).registerHandle(({hostname, params}, actionUrl, dispatcher) => {
     if (hostname === 'dialog') {
         wx.showModal({
             title: params.title,
@@ -16,4 +11,3 @@ const d = new Dispatcher().register(({protocol, hostname, params}, actionUrl, di
     }
     return false;
 });
-export default d;

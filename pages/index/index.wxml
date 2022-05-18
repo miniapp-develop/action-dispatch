@@ -10,7 +10,7 @@
         点击打开其他页面(name方式)
     </view>
     <view class="sample_card"
-          data-url="mini://miniapp?appId=xxxxxx&path=%2Fpages%2FpageB%2Findex%3Ffrom%3Dsource1"
+          data-url="mini://miniapp?appId=xxxxxx&path=%2Fpages%2FpageB%2Findex%3Ffrom%3Dsource3"
           bind:tap="onTap">
         点击打开其他小程序
     </view>
@@ -28,7 +28,7 @@
         点击弹出对话框(自定义)
     </view>
     <view class="sample_card"
-          data-url="mini://func/aFn?title=Demo&content=Hello" bind:tap="onTap">
+          data-url="mini://function/aFn?title=Demo&content=Hello" bind:tap="onTap">
         点击调用页面内方法
     </view>
 </view>

@@ -1,1 +1,2 @@
-module.exports = require('./dispatch');
+exports.Dispatcher = require('./Dispatcher');
+exports.MiniDispatcher = require('./MiniDispatcher');
