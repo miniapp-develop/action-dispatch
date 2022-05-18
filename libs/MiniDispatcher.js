@@ -27,9 +27,13 @@ const pageNameHandle = ({hostname, params, query}, actionUrl, dispatcher) => {
         return false;
     }
     const pageRoute = dispatcher.getPageRoute(params._name);
-    wx.navigateTo({
-        url: decodeURIComponent(`${pageRoute}?${query}`)
-    });
+    if (!pageRoute) {
+        console.error('没有找到 page:', params._name);
+    } else {
+        wx.navigateTo({
+            url: decodeURIComponent(`${pageRoute}?${query}`)
+        });
+    }
     return true;
 };
 

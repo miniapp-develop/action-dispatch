@@ -7,7 +7,12 @@
     <view class="sample_card"
           data-url="mini://page?_name=pageB&from=source2"
           bind:tap="onTap">
-        点击打开其他页面(name方式)
+        点击打开其他页面(name已注册)
+    </view>
+    <view class="sample_card"
+          data-url="mini://page?_name=none&from=source2"
+          bind:tap="onTap">
+        点击打开其他页面(name未注册)
     </view>
     <view class="sample_card"
           data-url="mini://miniapp?appId=xxxxxx&path=%2Fpages%2FpageB%2Findex%3Ffrom%3Dsource3"
