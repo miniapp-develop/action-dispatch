@@ -27,12 +27,12 @@ const pageNameHandle = ({hostname, params, query}, actionUrl, dispatcher) => {
         return false;
     }
     const pageRoute = dispatcher.getPageRoute(params._name);
-    if (!pageRoute) {
-        console.error('没有找到 page:', params._name);
-    } else {
+    if (pageRoute) {
         wx.navigateTo({
             url: decodeURIComponent(`${pageRoute}?${query}`)
         });
+    } else {
+        console.error('没有找到 page:', params._name);
     }
     return true;
 };
