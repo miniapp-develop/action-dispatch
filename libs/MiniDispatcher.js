@@ -1,6 +1,6 @@
 const Dispatcher = require('./Dispatcher');
 
-function httpHandle(action, actionUrl, dispatcher) {
+function httpHandle(action, rawActionUrl, dispatcher) {
     if (action.protocol !== 'https:') {
         return false;
     }
@@ -22,7 +22,7 @@ const pagePathHandle = (action) => {
     return true;
 };
 
-const pageNameHandle = ({hostname, params, query}, actionUrl, dispatcher) => {
+const pageNameHandle = ({hostname, params, query}, rawActionUrl, dispatcher) => {
     if (hostname !== 'page') {
         return false;
     }
@@ -49,7 +49,7 @@ const miniappHandle = ({hostname, params}) => {
     return true;
 };
 
-const webviewHandle = ({hostname, query}, actionUrl, dispatcher) => {
+const webviewHandle = ({hostname, query}, rawActionUrl, dispatcher) => {
     if (hostname !== 'webview') {
         return false;
     }
@@ -86,15 +86,15 @@ class MiniDispatcher extends Dispatcher {
         return this._routes[pageName];
     }
 
-    handleAction(action, actionUrl, miniContext) {
-        const highPriority = super.handleAction(action, actionUrl, miniContext);
+    handleAction(action, rawActionUrl, miniContext) {
+        const highPriority = super.handleAction(action, rawActionUrl, miniContext);
         if (highPriority) {
             return true;
         }
         if (action.protocol !== this.config('protocol')) {
             return false;
         }
-        return super._handleAction([pageNameHandle, miniappHandle, webviewHandle, functionHandle], action, actionUrl, this, miniContext);
+        return super._handleAction([pageNameHandle, miniappHandle, webviewHandle, functionHandle], action, rawActionUrl, this, miniContext);
     }
 }
 

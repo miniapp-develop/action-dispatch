@@ -9,13 +9,12 @@
 ```shell script
 npm install @mini-dev/action-dispatch
 ```
-
-配置默认的 webview 页面地址：
+如果想启用默认的“支持跳转到网页”，需要先配置小程序内具体的 webview 页面地址。配置方式如下：
 
 ```javascript
 const {Dispatcher, MiniDispatcher} = require("@mini-dev/action-dispatch");
 const dispatcher = new MiniDispatcher();
-dispatcher.config("webview", '/pages/web/index');
+dispatcher.config("webview", '/pages/web/index'); 
 ```
 
 配置自定义处理函数：
@@ -24,11 +23,11 @@ dispatcher.config("webview", '/pages/web/index');
 dispatcher.registerHandle((action, actionUrl, dispatcher) => {
     if (action.protocol === 'http' || action.protocol === 'https') {
         wx.navigateTo({
-            url: `${dispatcher.config('webview')}?url=${actionUrl}`
+            url: `${dispatcher.config('webview')}?_url=${encodeURIComponent(actionUrl)}`
         });
-        return true;
+        return true; //返回 true 表示不再向后续的事件处理器传递
     }
-    return false;
+    return false; //返回 false 表示接着向后续的事件处理器传递
 });
 ```
 
@@ -53,7 +52,7 @@ dispatcher.handle('/pages/pageB/index?from=source1', {a:100})
 ```
 最终执行跳转的 path 为：
 
-   /pages/pageB/index?from=source1&a=100
+    /pages/pageB/index?from=source1&a=100
 
 #### 通过页面名称跳转小程序内的其他页面
 
@@ -68,7 +67,7 @@ dispatcher.handle('mini://page?_name=pageA&from=source2', {a:100})
 ```
 最终执行跳转的 path 为：
 
-   /pages/pageB/index?_name=pageA&from=source2&a=100
+    /pages/pageB/index?_name=pageA&from=source2&a=100
    
 #### 跳转具体链接到网页
 
@@ -80,7 +79,7 @@ dispatcher.handle('mini://page?_name=pageA&from=source2', {a:100})
 
     mini://webview?_url={webpage url}&key=value
 
-其中 _url 指定目标网页的链接地址，其他参数（比如：key=value）、以及通过 extra 传入的参数，都会被附加到执行跳转的 path 上，而不是最终的网页地址上。
+其中 <strong>_url</strong> 指定目标网页的链接地址，其他参数（比如：key=value）、以及通过 extra 传入的参数，都会被附加到执行跳转的 path 上，而不是最终的网页地址上。
 
 #### 跳转到其他小程序
 
@@ -92,14 +91,16 @@ dispatcher.handle('mini://page?_name=pageA&from=source2', {a:100})
 
 ### 修改默认协议
 
+MiniDispatcher 默认支持的协议是 mini:// ，支持修改：
+
 ```javascript
 dispatcher.config('protocol','test');
 ```
-这样，默认的跳转协议就变成：
+配置之后，默认的跳转协议就变成：
 
     test://page?_name={page name}
     test://webview?_url={webpage url}
     test://miniapp?appId={miniapp id}&path={page path}
-    test://{function name}?param1=value1
+    test://function/{function name}?param1=value1
     
     

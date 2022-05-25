@@ -1,6 +1,6 @@
 {
   "name": "@mini-dev/action-dispatch",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "miniapp action dispatch",
   "miniprogram": "libs",
   "main": "./libs/index.js",

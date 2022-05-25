@@ -25,7 +25,7 @@
         点击打开网页(webview方式)
     </view>
     <view class="sample_card"
-          data-url="https://aa.bb.cc/xyz?key=value&from=source5" bind:tap="onTap">
+          data-url="https://mp.weixin.qq.com/s?__biz=MzkwNzIzNDQ1Ng==&mid=2247483686&idx=1&sn=d2a0056517620e9d245e80b36e442a00&chksm=c0dd1cd1f7aa95c754cc841e6c2d2459d31ea40da14c8b15064f8c1479c304cad9054e3f13f7#rd" bind:tap="onTap">
         点击打开网页(http方式)
     </view>
     <view class="sample_card"

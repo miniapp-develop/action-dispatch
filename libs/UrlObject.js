@@ -6,7 +6,8 @@ class UrlObject {
         if (this._url.query) {
             this._params = this._url.query.split('&')
                 .map(pair => {
-                    return pair.split('=');
+                    const sepIndex = pair.indexOf('=');
+                    return [pair.substring(0, sepIndex), pair.substring(sepIndex + 1)]
                 })
                 .reduce((obj, [key, value]) => {
                     obj[key] = value; // todo 处理多选的情况
