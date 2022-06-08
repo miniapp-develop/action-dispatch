@@ -4,41 +4,41 @@ function httpHandle(action, rawActionUrl, dispatcher) {
     if (action.protocol !== 'https:') {
         return false;
     }
-    const finalUrl = action.createUrlString();
+    const finalUrl = action.toString();
     wx.navigateTo({
         url: `${dispatcher.config('webview')}?_url=${encodeURIComponent(finalUrl)}`
     });
     return true;
 }
 
-const pagePathHandle = (action) => {
+const pagePathHandle = action => {
     if (action.protocol) {
         return false;
     }
-    const finalUrl = action.createUrlString();
+    const finalUrl = action.toString();
     wx.navigateTo({
         url: decodeURIComponent(`${finalUrl}`)
     });
     return true;
 };
 
-const pageNameHandle = ({hostname, params, query}, rawActionUrl, dispatcher) => {
-    if (hostname !== 'page') {
+const pageNameHandle = (action, rawActionUrl, dispatcher) => {
+    if (action.hostname !== 'page') {
         return false;
     }
-    const pageRoute = dispatcher.getPageRoute(params._name);
+    const pageRoute = dispatcher.getPageRoute(action.searchParams.get('_name'));
     if (pageRoute) {
         wx.navigateTo({
-            url: decodeURIComponent(`${pageRoute}?${query}`)
+            url: decodeURIComponent(`${pageRoute}${action.search}`)
         });
     } else {
-        console.error('没有找到 page:', params._name);
+        console.error('没有找到 page:', action.searchParams.get('_name'));
     }
     return true;
 };
 
-const miniappHandle = ({hostname, params}) => {
-    if (hostname !== 'miniapp') {
+const miniappHandle = action => {
+    if (action.hostname !== 'miniapp') {
         return false;
     }
     let finalParams = {};

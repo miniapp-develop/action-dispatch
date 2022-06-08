@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/miniapp-develop/action-dispatch",
   "dependencies": {
-    "@xesam/url": "0.0.3"
+    "@xesam/url-object": "0.0.1"
   },
   "devDependencies": {},
   "keywords": [

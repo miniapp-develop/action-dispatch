@@ -1,11 +1,11 @@
 const {MiniDispatcher} = require('../libs/index');
 export default new MiniDispatcher({
     pageB: '/pages/pageB/index'
-}).registerHandle(({hostname, params}, actionUrl, dispatcher) => {
-    if (hostname === 'dialog') {
+}).registerHandle((action, actionUrl, dispatcher) => {
+    if (action.hostname === 'dialog') {
         wx.showModal({
-            title: params.title,
-            content: params.content
+            title: action.searchParams.get('title'),
+            content: action.searchParams.get('content')
         });
         return true;
     }

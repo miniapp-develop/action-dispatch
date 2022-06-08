@@ -1,4 +1,4 @@
-const UrlObject = require('./UrlObject');
+const UrlObject = require('@xesam/url-object');
 const DEFAULT_WEBVIEW_PAGE = '/pages/web/index';
 
 class Dispatcher {
@@ -26,7 +26,7 @@ class Dispatcher {
     }
 
     _parseAction(actionUrl) {
-        return new UrlObject(actionUrl);
+        return UrlObject(actionUrl);
     }
 
     _handleAction(handles, action, rawActionUrl, dispatcher, handleContext) {
@@ -45,7 +45,9 @@ class Dispatcher {
 
     handle(actionUrl, extra, handleContext) {
         const action = this._parseAction(actionUrl);
-        action.assignParams(extra);
+        for (const k in extra) {
+            action.searchParams.append(k, extra[k]);
+        }
         return this.handleAction(action, actionUrl, handleContext);
     }
 }
