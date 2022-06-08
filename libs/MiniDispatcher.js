@@ -42,33 +42,33 @@ const miniappHandle = action => {
         return false;
     }
     let finalParams = {};
-    for (let key in params) {
-        finalParams[key] = decodeURIComponent(params[key]);
-    }
+    action.searchParams.keys().forEach(key => {
+        finalParams[key] = decodeURIComponent(action.searchParams.get(key));
+    });
     wx.navigateToMiniProgram(finalParams);
     return true;
 };
 
-const webviewHandle = ({hostname, query}, rawActionUrl, dispatcher) => {
+const webviewHandle = ({hostname, search}, rawActionUrl, dispatcher) => {
     if (hostname !== 'webview') {
         return false;
     }
     wx.navigateTo({
-        url: `${dispatcher.config('webview')}?${query}`
+        url: `${dispatcher.config('webview')}${search}`
     });
     return true;
 };
 
-function functionHandle({hostname, pathname, params}) {
-    if (hostname !== 'function') {
+function functionHandle(action) {
+    if (action.hostname !== 'function') {
         return false;
     }
-    const methodName = pathname.substring(1)
+    const methodName = action.pathname.substring(1)
     const method = this[methodName];
     if (!method) {
         return false;
     }
-    method.call(this, params);
+    method.call(this, action.searchParams);
     return true;
 }
 

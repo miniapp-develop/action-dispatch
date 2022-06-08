@@ -15,8 +15,9 @@ Page({
         const actionUrl = e.target.dataset.url;
         dispatcher.handle(actionUrl, this.data.extra, this);
     },
-    aFn() {
+    aFn(params) {
         wx.showModal({
+            title: params.get('title'),
             content: '默认弹框'
         });
     }
