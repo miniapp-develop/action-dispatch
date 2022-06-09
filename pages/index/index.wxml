@@ -1,39 +1,40 @@
 <view class="container">
     <view class="sample_card"
-          data-url="/pages/pageB/index?from=source1"
+          data-url="/pages/pageB/index?from=url_source1"
           bind:tap="onTap">
         点击打开其他页面(path方式)
     </view>
     <view class="sample_card"
-          data-url="mini://page?_name=pageB&from=source2"
+          data-url="mini://page?_name=pageB&from=url_source2"
           bind:tap="onTap">
         点击打开其他页面(name已注册)
     </view>
     <view class="sample_card"
-          data-url="mini://page?_name=none&from=source2"
+          data-url="mini://page?_name=none_exist_page&from=url_source2"
           bind:tap="onTap">
         点击打开其他页面(name未注册)
     </view>
     <view class="sample_card"
-          data-url="mini://miniapp?appId=xxxxxx&path=%2Fpages%2FpageB%2Findex%3Ffrom%3Dsource3"
+          data-url="mini://miniapp?appId=xxxxxx&path=%2Fpages%2FpageB%2Findex%3Ffrom%3Durl_source3"
           bind:tap="onTap">
         点击打开其他小程序
     </view>
     <view class="sample_card"
-          data-url="mini://webview?_url=https%3A%2F%2Faa.bb.cc%2Fxyz%3Fkey%3Dvalue&title=this_is_title&color=red"
+          data-url="mini://webview?_url=https%3A%2F%2Faa.bb.cc%2Fxyz%3Fkey%3Dvalue&title=url_this_is_title&color=url_red"
           bind:tap="onTap">
         点击打开网页(webview方式)
     </view>
     <view class="sample_card"
-          data-url="https://mp.weixin.qq.com/s?__biz=MzkwNzIzNDQ1Ng==&mid=2247483686&idx=1&sn=d2a0056517620e9d245e80b36e442a00&chksm=c0dd1cd1f7aa95c754cc841e6c2d2459d31ea40da14c8b15064f8c1479c304cad9054e3f13f7#rd" bind:tap="onTap">
+          data-url="https://mp.weixin.qq.com/s?__biz=MzkwNzIzNDQ1Ng==&mid=2247483686&idx=1&sn=d2a0056517620e9d245e80b36e442a00&chksm=c0dd1cd1f7aa95c754cc841e6c2d2459d31ea40da14c8b15064f8c1479c304cad9054e3f13f7#rd"
+          bind:tap="onTap">
         点击打开网页(http方式)
     </view>
     <view class="sample_card"
-          data-url="mini://dialog?title=Demo&content=Hello" bind:tap="onTap">
+          data-url="mini://dialog?title=url_dialog_title&content=url_dialog_Hello" bind:tap="onTap">
         点击弹出对话框(自定义)
     </view>
     <view class="sample_card"
-          data-url="mini://function/aFn?title=Demo&content=Hello" bind:tap="onTap">
+          data-url="mini://function/aFn?title=url_function_title&content=url_function_Hello" bind:tap="onTap">
         点击调用页面内方法
     </view>
 </view>

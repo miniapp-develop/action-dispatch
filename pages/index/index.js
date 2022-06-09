@@ -3,8 +3,8 @@ import dispatcher from '../dispatcher';
 Page({
     data: {
         extra: {
-            name: 'index',
-            id: '000000000000001'
+            name: 'extra_name',
+            id: 'extra_id'
         }
     },
     onLoad(query) {
@@ -18,7 +18,8 @@ Page({
     aFn(params) {
         wx.showModal({
             title: params.get('title'),
-            content: '默认弹框'
+            content: params.get('content'),
+            showCancel: false
         });
     }
 });

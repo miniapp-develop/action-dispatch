@@ -1,6 +1,6 @@
 const Dispatcher = require('./Dispatcher');
 
-function httpHandle(action, rawActionUrl, dispatcher) {
+function httpHandle(action, originActionUrl, dispatcher) {
     if (action.protocol !== 'https:') {
         return false;
     }
@@ -15,24 +15,24 @@ const pagePathHandle = action => {
     if (action.protocol) {
         return false;
     }
-    const finalUrl = action.toString();
     wx.navigateTo({
-        url: decodeURIComponent(`${finalUrl}`)
+        url: decodeURIComponent(action.toString())
     });
     return true;
 };
 
-const pageNameHandle = (action, rawActionUrl, dispatcher) => {
+const pageNameHandle = (action, originActionUrl, dispatcher) => {
     if (action.hostname !== 'page') {
         return false;
     }
-    const pageRoute = dispatcher.getPageRoute(action.searchParams.get('_name'));
+    const pageName = action.searchParams.get('_name');
+    const pageRoute = dispatcher.getPageRoute(pageName);
     if (pageRoute) {
         wx.navigateTo({
             url: decodeURIComponent(`${pageRoute}${action.search}`)
         });
     } else {
-        console.error('没有找到 page:', action.searchParams.get('_name'));
+        console.error('没有找到 page:', pageName, originActionUrl);
     }
     return true;
 };
@@ -41,15 +41,15 @@ const miniappHandle = action => {
     if (action.hostname !== 'miniapp') {
         return false;
     }
-    let finalParams = {};
+    let finalOption = {};
     action.searchParams.keys().forEach(key => {
-        finalParams[key] = decodeURIComponent(action.searchParams.get(key));
+        finalOption[key] = decodeURIComponent(action.searchParams.get(key));
     });
-    wx.navigateToMiniProgram(finalParams);
+    wx.navigateToMiniProgram(finalOption);
     return true;
 };
 
-const webviewHandle = ({hostname, search}, rawActionUrl, dispatcher) => {
+const webviewHandle = ({hostname, search}, originActionUrl, dispatcher) => {
     if (hostname !== 'webview') {
         return false;
     }
@@ -86,15 +86,15 @@ class MiniDispatcher extends Dispatcher {
         return this._routes[pageName];
     }
 
-    handleAction(action, rawActionUrl, miniContext) {
-        const highPriority = super.handleAction(action, rawActionUrl, miniContext);
+    handleAction(action, originActionUrl, miniContext) {
+        const highPriority = super.handleAction(action, originActionUrl, miniContext);
         if (highPriority) {
             return true;
         }
         if (action.protocol !== this.config('protocol')) {
             return false;
         }
-        return super._handleAction([pageNameHandle, miniappHandle, webviewHandle, functionHandle], action, rawActionUrl, this, miniContext);
+        return super._handleAction([pageNameHandle, miniappHandle, webviewHandle, functionHandle], action, originActionUrl, this, miniContext);
     }
 }
 
