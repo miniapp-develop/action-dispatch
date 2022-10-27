@@ -8,3 +8,5 @@ miniprogram_npm
 sitemap.json
 .idea
 *.iml
+__test__
+test
