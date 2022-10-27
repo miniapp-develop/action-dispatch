@@ -45,8 +45,10 @@ class Dispatcher {
 
     handle(actionUrl, extra, handleContext) {
         const action = this._parseAction(actionUrl);
-        for (const k in extra) {
-            action.searchParams.append(k, extra[k]);
+        if (extra) {
+            for (const k in extra) {
+                action.searchParams.append(k, extra[k]);
+            }
         }
         return this.handleAction(action, actionUrl, handleContext);
     }
